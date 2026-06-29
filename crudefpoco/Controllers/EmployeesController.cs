@@ -1,17 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using crudefpoco.DTOs.Employee;
+using crudefpoco.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace crudefpoco.Controllers
 {
-    public class EmployeesController
+    [ApiController]
+    [Route("api/[controller]")]
+    public class EmployeesController : ControllerBase
     {
-        [HttpPost]
-        public async Task<IActionResult> Create(
-      CreateEmployeeDto dto)
+        private readonly IEmployeeService _service;
+        public EmployeesController(IEmployeeService service)
         {
+            _service = service;
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateEmployeeDto dto)
+        {
+            await _service.CreateAsync(dto);
+            return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var employees = await _service.GetAllAsync();
+            return Ok(employees);
         }
     }
 }
