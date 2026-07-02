@@ -13,6 +13,8 @@ namespace crudefpoco.Entities
 
         public string Email { get; set; } = string.Empty;
 
+        //public string ResumePath { get; set; } = string.Empty;
+
         public DateTime CreatedDate { get; set; }
     }
 }
